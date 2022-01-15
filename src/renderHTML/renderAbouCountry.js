@@ -6,8 +6,8 @@ export default function aboutCountries(countries) {
         country.name.official
       }</span> </p>
     <p>Capital -> ${country.capital}</p>
-    <p>Capital -> ${country.population}</p>
-    <p>Capital -> ${Object.values(country.languages)}</p>
+    <p>Population -> ${country.population}</p>
+    <p>Languages -> ${Object.values(country.languages)}</p>
     `;
     })
     .join('');
