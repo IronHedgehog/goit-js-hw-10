@@ -9,7 +9,7 @@ export default function fetchCountries(country) {
       return response.json();
     })
     .catch(err => {
-      console.log('Я ВУМНІЙ');
+      console.log('err');
     });
 }
-// fetchCountries('Ukraine');
+
