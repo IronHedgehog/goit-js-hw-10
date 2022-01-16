@@ -6,8 +6,7 @@ import Notiflix from 'notiflix';
 
 import createCountry from './renderHTML/renderCountry';
 import aboutCountries from './renderHTML/renderAbouCountry';
-
-import fetchCountries from './fetch';
+import NewClass from './fetchCountries';
 
 const DEBOUNCE_DELAY = 300;
 
@@ -17,16 +16,20 @@ const refs = {
   info: document.querySelector('.country-info'),
 };
 
+const newClass = new NewClass();
+
 refs.input.addEventListener('input', debounce(inputValue, DEBOUNCE_DELAY));
 
 function inputValue(e) {
   const value = e.target.value.trim();
+  newClass.val = value;
   if (value === '') {
     refs.country.innerHTML = '';
     refs.info.innerHTML = '';
     return;
   }
-  fetchCountries(value)
+  newClass
+    .fetchCountries()
     .then(response => {
       if (response.length > 10) {
         Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
