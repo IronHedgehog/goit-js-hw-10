@@ -23,9 +23,8 @@ refs.input.addEventListener('input', debounce(inputValue, DEBOUNCE_DELAY));
 function inputValue(e) {
   const value = e.target.value.trim();
   newClass.val = value;
-  if (value === '') {
-    refs.country.innerHTML = '';
-    refs.info.innerHTML = '';
+  if (!value) {
+    createMarkUp();
     return;
   }
   newClass
@@ -33,22 +32,24 @@ function inputValue(e) {
     .then(response => {
       if (response.length > 10) {
         Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
-        refs.country.innerHTML = '';
-        refs.info.innerHTML = '';
+        createMarkUp();
         return;
       }
       if (response.length < 10 && response.length >= 2) {
-        refs.country.innerHTML = createCountry(response);
-        refs.info.innerHTML = '';
+        createMarkUp(createCountry(response));
         return;
       }
       if (response.length === 1) {
-        refs.info.innerHTML = aboutCountries(response);
-        refs.country.innerHTML = '';
+        createMarkUp('', aboutCountries(response));
         return;
       }
     })
     .catch(err => {
       Notiflix.Notify.failure('Oops, there is no country with that name');
     });
+}
+
+function createMarkUp(a = '', b = '') {
+  refs.country.innerHTML = a;
+  refs.info.innerHTML = b;
 }
